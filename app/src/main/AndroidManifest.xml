@@ -16,7 +16,7 @@
             android:name=".activities.LogInAccount"
             android:exported="false" />
         <activity
-            android:name=".CreateAccount"
+            android:name=".activities.CreateAccount"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

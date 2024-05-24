@@ -12,40 +12,40 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.habit_tracker.MainActivity;
 import com.example.habit_tracker.R;
-import com.example.habit_tracker.utils.SessionData;
 import com.example.habit_tracker.utils.Utils;
 
-public class LogInAccount extends AppCompatActivity {
+public class CreateAccount extends AppCompatActivity {
     private EditText username;
     private EditText password;
+    private EditText repeatPassword;
 
-    private Button loginBtn;
-    private Button createAccountBtn;
+    private Button goToLoginBtn;
+    private Button registerBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in_account);
+        setContentView(R.layout.activity_create_account);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        SessionData.initialize();
-
-        loginBtn.setOnClickListener(v -> login());
-        createAccountBtn.setOnClickListener(v -> {
-            // TODO: Remove when implemented
-            // startActivity(LogInAccount.this, SignInActivity.class);
+        goToLoginBtn.setOnClickListener(v -> {
+            toast(String.format("%s has successfully logged in!", Utils.getString(username)));
+            startActivity(new Intent(CreateAccount.this, LogInAccount.class));
         });
+        registerBtn.setOnClickListener(v -> register());
     }
 
-    public void login() {
-        if (Utils.isEmpty(username) || Utils.isEmpty(password)) {
+    public void register() {
+        if (Utils.isEmpty(username) || Utils.isEmpty(password) || Utils.isEmpty(repeatPassword)) {
             toast("Please do not leave any fields empty!");
+        } else if (Utils.getString(password).equals(Utils.getString(repeatPassword))) {
+            toast("Password and repeat password fields do not match");
         } else {
-            toast(String.format("Welcome to Habit Tracker! %s", Utils.getString(username)));
+            toast(String.format("%s has successfully logged in!", Utils.getString(username)));
             startActivity(new Intent(this, MainActivity.class));
         }
     }
