@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -12,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.habit_tracker.MainActivity;
 import com.example.habit_tracker.R;
+import com.example.habit_tracker.data.DatabaseHelper;
 import com.example.habit_tracker.data.User;
 import com.example.habit_tracker.utils.SessionData;
 import com.example.habit_tracker.utils.Utils;
@@ -23,7 +25,7 @@ public class CreateAccount extends AppCompatActivity {
     private EditText password;
     private EditText repeatPassword;
 
-    private Button goToLoginBtn;
+    private TextView goToLoginBtn;
     private Button registerBtn;
 
     @Override
@@ -36,11 +38,14 @@ public class CreateAccount extends AppCompatActivity {
             return insets;
         });
 
-        goToLoginBtn.setOnClickListener(v -> {
-            toast(String.format("%s has successfully logged in!", Utils.getString(username)));
-            startActivity(new Intent(CreateAccount.this, LogInAccount.class));
-        });
-        registerBtn.setOnClickListener(v -> register());
+        username = findViewById(R.id.usernameSignUp);
+        password = findViewById(R.id.passwordSignUp);
+        repeatPassword = findViewById(R.id.repeatPassSignUp);
+
+        goToLoginBtn = findViewById(R.id.logInTextBtn);
+        registerBtn = findViewById(R.id.signUpBtn);
+
+        setButtons();
     }
 
     public void register() {
@@ -51,6 +56,9 @@ public class CreateAccount extends AppCompatActivity {
         } else if (isUsernameExists()) {
             toast("Username already exists! Please use a different username");
         } else {
+            new DatabaseHelper(this).addUser(new User(
+                    Utils.getString(username), Utils.getString(password)
+            ));
             longToast(String.format("%s has successfully logged in!", Utils.getString(username)));
             startActivity(new Intent(this, MainActivity.class));
         }
@@ -64,6 +72,14 @@ public class CreateAccount extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    private void setButtons() {
+        goToLoginBtn.setOnClickListener(v -> {
+            toast(String.format("%s has successfully logged in!", Utils.getString(username)));
+            startActivity(new Intent(CreateAccount.this, LogInAccount.class));
+        });
+        registerBtn.setOnClickListener(v -> register());
     }
 
     public void toast(String message) {
