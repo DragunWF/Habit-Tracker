@@ -13,6 +13,9 @@
         android:theme="@style/Theme.HabitTracker"
         tools:targetApi="31">
         <activity
+            android:name=".AddHabits"
+            android:exported="false" />
+        <activity
             android:name=".activities.LogInAccount"
             android:exported="false" />
         <activity
