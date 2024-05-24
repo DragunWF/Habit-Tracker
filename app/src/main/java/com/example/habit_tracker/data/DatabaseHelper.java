@@ -212,10 +212,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateHabit(String name, String description, String schedule, String time) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        String where = String.format("%s = ? AND %s = ?", USER_ID_FK, HABIT_ID_PK);
+        String userID = String.valueOf(SessionData.getCurrentUser().getUserID());
+        // TODO: NEEDED RECYCLERVIEW TO GET THIS -> String habitID =
         cv.put(NAME, name);
         cv.put(DESCRIPTION, description);
         cv.put(SCHEDULE, schedule);
         cv.put(TIME, time);
-        db.update(HABIT_TBL, cv, HABIT_ID_PK + " = ?", new String[]{String.valueOf(SessionData.getHabits())});
+        db.update(HABIT_TBL, cv, where, new String[]{userID, }); //<- DITO ILALAGAY habitID
+    }
+
+    public Habit getMostRecentHabit() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = String.format("SELECT * FROM %s ORDER BY %s DESC LIMIT 1", HABIT_TBL, HABIT_ID_PK);
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            return new Habit(cursor.getInt(0),
+                             cursor.getString(1),
+                             cursor.getString(2),
+                             cursor.getString(3),
+                             cursor.getString(4),
+                             cursor.getInt(5),
+                             cursor.getString(6));
+        }
+        return null;
+    }
+
+    public void deleteHabit() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String where = String.format("%s = %s", HABIT_ID_PK, 3); //TODO: NEEDED RECYCLERVIEW TO GET THIS -> habitID
+        db.delete(HABIT_TBL, where, null);
     }
 }
