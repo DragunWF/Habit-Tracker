@@ -1,5 +1,6 @@
 package com.example.habit_tracker.utils;
 
+import com.example.habit_tracker.data.Habit;
 import com.example.habit_tracker.data.User;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 public class SessionData {
     private static User currentUser;
     private static List<User> users;
+    private static List<Habit> habits;
     private static boolean initialize = false;
 
     public static void initialize() {
@@ -30,5 +32,21 @@ public class SessionData {
 
     public static void setUsers(List<User> users) {
         SessionData.users = users;
+    }
+
+    public static List<Habit> getHabits() {
+        return habits;
+    }
+
+    public static void setHabits(List<Habit> habits) {
+        SessionData.habits = habits;
+    }
+
+    public static boolean isInitialize() {
+        return initialize;
+    }
+
+    public static void setInitialize(boolean initialize) {
+        SessionData.initialize = initialize;
     }
 }
