@@ -50,10 +50,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, "habit.db", null, 1);
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String user_tbl = "CREATE TABLE " + USER_TBL + "(" + USER_ID_PK + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                           + USERNAME + " TEXT NOT NULL, " + PASSWORD + " TEXT NOT NULL)";
+
 
         String habit_tbl = "CREATE TABLE " + HABIT_TBL + "(" + HABIT_ID_PK + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                           + NAME + " TEXT NOT NULL, " + DESCRIPTION + " TEXT, " + TIME + " TEXT NOT NULL, "
@@ -85,6 +87,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public String createTable() {
+        return "CREATE TABLE " + HABIT_TBL + "(" + HABIT_ID_PK + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + NAME + " TEXT NOT NULL, " + DESCRIPTION + " TEXT, " + TIME + " TEXT NOT NULL, "
+                + SCHEDULE + " TEXT NOT NULL, " + USER_ID_FK + " INTEGER NOT NULL, " + STATUS + " TEXT NOT NULL, "
+                + "FOREIGN KEY (" + USER_ID_FK + ") REFERENCES " + USER_TBL + "(" + USER_ID_PK + "))";
     }
 
     public void addUser(User user) {
@@ -189,10 +198,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return habits;
     }
 
-    public void updatePassword(String newPassword, String oldPassword) {
+    public void updatePassword(String newPassword) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(PASSWORD, newPassword);
-        db.update(USER_TBL, cv, USER_ID_PK + " = " + oldPassword, new String[]{String.valueOf(new User().getPassword())});
+        db.update(USER_TBL, cv, USER_ID_PK + " = ?" , new String[]{String.valueOf(new User().getUserID())});
     }
 }

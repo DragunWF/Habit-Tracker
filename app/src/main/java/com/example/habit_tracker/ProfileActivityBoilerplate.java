@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.example.habit_tracker.utils.SessionData;
 
-public class ProfileTemplate {
+public class ProfileActivityBoilerplate {
     private TextView username;
     private Button changePasswordBtn;
     private Button logOutBtn;
