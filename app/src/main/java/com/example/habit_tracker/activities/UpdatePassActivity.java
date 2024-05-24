@@ -29,9 +29,9 @@ public class UpdatePassActivity extends AppCompatActivity {
             return insets;
         });
 
-        // newPassword = findViewById(R.id.);
-        // repeatPassword = findViewById(R.id.);
-        // updateBtn = findViewById(R.id.);
+        newPassword = findViewById(R.id.updateNewPass);
+        repeatPassword = findViewById(R.id.updateRepeatPass);
+        updateBtn = findViewById(R.id.updatePassBtn1);
 
         updateBtn.setOnClickListener(v -> {
             if (Utils.isEmpty(newPassword) || Utils.isEmpty(repeatPassword)) {

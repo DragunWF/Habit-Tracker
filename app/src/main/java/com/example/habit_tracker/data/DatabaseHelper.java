@@ -153,7 +153,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return users;
     }
 
-    public List<Habit> getHabit() {
+    public List<Habit> getHabits() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + HABIT_TBL, null);
         List<Habit> habits = new ArrayList<>();
@@ -171,7 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return habits;
     }
 
-    public List<Habit> getUnfinishedHabit() {
+    public List<Habit> getUnfinishedHabits() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + UNFINISHED_TBL, null);
         List<Habit> habits = new ArrayList<>();
@@ -186,7 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return habits;
     }
 
-    public List<Habit> getCompletedHabit() {
+    public List<Habit> getCompletedHabits() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + COMPLETED_TBL, null);
         List<Habit> habits = new ArrayList<>();

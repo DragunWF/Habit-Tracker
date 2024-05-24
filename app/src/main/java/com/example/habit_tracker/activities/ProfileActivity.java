@@ -1,5 +1,6 @@
 package com.example.habit_tracker.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.habit_tracker.R;
 import com.example.habit_tracker.utils.SessionData;
+import com.example.habit_tracker.utils.Utils;
 
 public class ProfileActivity extends AppCompatActivity {
     private TextView username;
@@ -29,17 +31,17 @@ public class ProfileActivity extends AppCompatActivity {
             return insets;
         });
 
-        // username = findViewById(R.id.);
-        // changePasswordBtn = findViewById(R.id.);
-        // logOutBtn = findViewById(R.id.);
+        username = findViewById(R.id.displayUsername);
+        changePasswordBtn = findViewById(R.id.updatePassBtn);
+        logOutBtn = findViewById(R.id.logoutBtn);
 
         changePasswordBtn.setOnClickListener(v -> {
-            // startActivity(new Intent(ProfileActivity.this, UpdateUser.class);
+            startActivity(new Intent(ProfileActivity.this, UpdatePassActivity.class));
         });
         logOutBtn.setOnClickListener(v -> {
-            // Utils.toast(ProfileActivity.this, "You have successfully logged out!");
+            Utils.toast(ProfileActivity.this, "You have successfully logged out!");
             SessionData.logOut();
-            // startActivity(new Intent(ProfileActivity.this, LogInAccount.class);
+            startActivity(new Intent(ProfileActivity.this, LogInAccountActivity.class));
         });
     }
 }
