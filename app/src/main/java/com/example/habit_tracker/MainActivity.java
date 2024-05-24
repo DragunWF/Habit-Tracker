@@ -7,16 +7,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.example.habit_tracker.activities.AddHabitsActivity;
+import com.example.habit_tracker.activities.ProfileActivity;
 import com.example.habit_tracker.data.Habit;
 import com.example.habit_tracker.utils.HabitRecycler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private Button profileBtn;
-    private Button goToAddHabitsBtn;
+    private ImageView profileBtn;
+    private FloatingActionButton goToAddHabitsBtn;
 
     private RecyclerView unfinishedHabitsRecycler;
     private RecyclerView finishedHabitsRecycler;
@@ -33,18 +37,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        profileBtn = findViewById(R.id.profileBtn);
+        goToAddHabitsBtn = findViewById(R.id.addHabitsBtn);
+
         setRecyclerViews();
         setButtons();
     }
 
     private void setButtons() {
         profileBtn.setOnClickListener(v -> {
-            // TODO: Remove when required classes are implemented
-            // startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
         });
         goToAddHabitsBtn.setOnClickListener(v -> {
-            // TODO: Remove when required classes are implemented
-            // startActivity(new Intent(MainActivity.this, AddHabits.class));
+            startActivity(new Intent(MainActivity.this, AddHabitsActivity.class));
         });
     }
 
