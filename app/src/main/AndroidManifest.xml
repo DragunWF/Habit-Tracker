@@ -13,13 +13,13 @@
         android:theme="@style/Theme.HabitTracker"
         tools:targetApi="31">
         <activity
-            android:name=".UpdatePass"
+            android:name=".activities.UpdatePassActivity"
             android:exported="false" />
         <activity
-            android:name=".profile"
+            android:name=".activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".AddHabits"
+            android:name=".activities.AddHabitsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LogInAccount"

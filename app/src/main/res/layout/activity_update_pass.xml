@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UpdatePass">
+    tools:context=".activities.UpdatePassActivity">
 
     <TextView
         android:id="@+id/textView7"

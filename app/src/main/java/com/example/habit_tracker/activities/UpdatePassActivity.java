@@ -1,16 +1,34 @@
-package com.example.habit_tracker;
+package com.example.habit_tracker.activities;
 
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.example.habit_tracker.R;
 import com.example.habit_tracker.utils.Utils;
 
-public class UpdatePassTemplate {
+public class UpdatePassActivity extends AppCompatActivity {
     private EditText newPassword;
     private EditText repeatPassword;
     private Button updateBtn;
 
-    public void start() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_update_pass);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
         // newPassword = findViewById(R.id.);
         // repeatPassword = findViewById(R.id.);
         // updateBtn = findViewById(R.id.);
@@ -29,6 +47,6 @@ public class UpdatePassTemplate {
     }
 
     private void toast(String message) {
-        // Utils.toast(this, message);
+        Utils.toast(this, message);
     }
 }
