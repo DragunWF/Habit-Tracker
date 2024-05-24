@@ -26,6 +26,10 @@ public class SessionData {
         SessionData.currentUser = currentUser;
     }
 
+    public static void logOut() {
+        SessionData.currentUser = null;
+    }
+
     public static List<User> getUsers() {
         return users;
     }
