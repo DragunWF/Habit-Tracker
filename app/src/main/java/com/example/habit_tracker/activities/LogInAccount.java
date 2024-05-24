@@ -34,6 +34,11 @@ public class LogInAccount extends AppCompatActivity {
 
         SessionData.initialize();
 
+        username = findViewById(R.id.usernameLogin);
+        password = findViewById(R.id.passwordLogin);
+        loginBtn = findViewById(R.id.logInBtn);
+        // createAccountBtn = findViewById(R.id.);
+
         loginBtn.setOnClickListener(v -> login());
         createAccountBtn.setOnClickListener(v -> {
             // TODO: Remove when implemented
