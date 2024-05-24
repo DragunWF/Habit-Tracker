@@ -5,8 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.se.omapi.Session;
 
 import androidx.annotation.Nullable;
+
+import com.example.habit_tracker.utils.SessionData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -202,6 +205,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(PASSWORD, newPassword);
-        db.update(USER_TBL, cv, USER_ID_PK + " = ?" , new String[]{String.valueOf(new User().getUserID())});
+        db.update(USER_TBL, cv, USER_ID_PK + " = ?" , new String[]{String.valueOf(SessionData.getCurrentUser().getUserID())});
+        SessionData.getCurrentUser().setPassword(newPassword);
+    }
+
+    public void updateHabit(String name, String description, String schedule, String time) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(NAME, name);
+        cv.put(DESCRIPTION, description);
+        cv.put(SCHEDULE, schedule);
+        cv.put(TIME, time);
+        db.update(HABIT_TBL, cv, HABIT_ID_PK + " = ?", new String[]{String.valueOf(SessionData.getHabits())});
     }
 }
