@@ -1,5 +1,7 @@
 package com.example.habit_tracker.utils;
 
+import com.example.habit_tracker.data.User;
+
 public class SessionData {
     private static User currentUser;
 
