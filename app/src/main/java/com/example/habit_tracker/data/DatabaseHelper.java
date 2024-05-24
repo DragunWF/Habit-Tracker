@@ -12,15 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    //------TABLES-------
     private final String USER_TBL = "user_tbl";
     private final String HABIT_TBL = "habit_tbl";
     private final String UNFINISHED_TBL = "unfinished_tbl";
     private final String COMPLETED_TBL = "completed_tbl";
-
+    //------TABLES-------
+    //------USER-COLUMNS-------
     private final String USER_ID_PK = "user_id";
     private final String USERNAME = "username";
     private final String PASSWORD = "password";
-
+    //------USER-COLUMNS-------
+    //------HABIT-COLUMNS-------
     private final String HABIT_ID_PK = "habit_id";
     private final String NAME = "name";
     private final String DESCRIPTION = "description";
@@ -28,16 +31,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final String SCHEDULE = "schedule";
     private final String USER_ID_FK = "user_id"; //FOREIGN KEY NG MASA
     private final String STATUS = "status";
-
+    //------HABIT-COLUMNS-------
+    //------UNFINISHED-COLUMNS------
     private final String UNFINISHED_ID_PK = "unfinished_id";
     private final String HABIT_ID_FK = "habit_id";
     //USER_ID_FK
     private final String NAME_FK = "name";
-
+    //------UNFINISHED-COLUMNS------
+    //------COMPLETED-COLUMNS------
     private final String COMPLETED_ID_PK = "completed_id";
+    //HABIT_ID_FK
     //USER_ID_FK
     //NAME_FK
-
+    //------COMPLETED-COLUMNS------
     public DatabaseHelper(@Nullable Context context) {
         super(context, "habit.db", null, 1);
     }
