@@ -19,6 +19,15 @@ public class Habit {
         this.status = status;
     }
 
+    public Habit(String name, String description, String time, String schedule, int userID, String status) {
+        this.name = name;
+        this.description = description;
+        this.time = time;
+        this.schedule = schedule;
+        this.userID = userID;
+        this.status = status;
+    }
+
     public int getHabitID() {
         return habitID;
     }
