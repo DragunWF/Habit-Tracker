@@ -12,8 +12,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.habit_tracker.MainActivity;
 import com.example.habit_tracker.R;
+import com.example.habit_tracker.data.User;
 import com.example.habit_tracker.utils.SessionData;
 import com.example.habit_tracker.utils.Utils;
+
+import java.util.List;
 
 public class LogInAccount extends AppCompatActivity {
     private EditText username;
@@ -49,10 +52,24 @@ public class LogInAccount extends AppCompatActivity {
     public void login() {
         if (Utils.isEmpty(username) || Utils.isEmpty(password)) {
             toast("Please do not leave any fields empty!");
+        } else if (!isUserMatch()) {
+            toast("Username and password does not match!");
         } else {
             toast(String.format("Welcome to Habit Tracker! %s", Utils.getString(username)));
             startActivity(new Intent(this, MainActivity.class));
         }
+    }
+
+    public boolean isUserMatch() {
+        List<User> users = SessionData.getUsers();
+        for (User user : users) {
+            if (user.getUsername().equals(Utils.getString(username)) &&
+                    user.getPassword().equals(Utils.getString(password))) {
+                SessionData.setCurrentUser(user);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void toast(String message) {
