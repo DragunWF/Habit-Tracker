@@ -52,6 +52,8 @@ public class CreateAccount extends AppCompatActivity {
         if (Utils.isEmpty(username) || Utils.isEmpty(password) || Utils.isEmpty(repeatPassword)) {
             toast("Please do not leave any fields empty!");
         } else if (Utils.getString(password).equals(Utils.getString(repeatPassword))) {
+            password.setText("");
+            repeatPassword.setText("");
             toast("Password and repeat password fields do not match");
         } else if (isUsernameExists()) {
             toast("Username already exists! Please use a different username");
