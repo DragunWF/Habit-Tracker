@@ -8,6 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.example.habit_tracker.data.Habit;
+import com.example.habit_tracker.utils.HabitRecycler;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private Button profileBtn;
     private Button goToAddHabitsBtn;
@@ -19,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter unfinishedHabitsAdapter;
     private RecyclerView.Adapter finishedHabitsAdapter;
 
+    private List<Habit> unfinishedHabits = new ArrayList<>();
+    private List<Habit> finishedHabits = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +49,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRecyclerViews() {
-        // TODO: Set recycler views and adapters
+        unfinishedHabitsRecycler = findViewById(R.id.unfinishedRecycleView);
+        finishedHabits = findViewById(R.id.completedRecycleView);
+
+        unfinishedHabitsRecycler.setHasFixedSize(true);
+        finishedHabitsRecycler.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
+        unfinishedHabitsRecycler.setLayoutManager(layoutManager);
+        finishedHabitsRecycler.setLayoutManager(layoutManager);
+
+        unfinishedHabitsAdapter = new HabitRecycler(unfinishedHabits);
+        finishedHabitsAdapter = new HabitRecycler(finishedHabits);
+
+        unfinishedHabitsRecycler.setAdapter(unfinishedHabitsAdapter);
+        finishedHabitsRecycler.setAdapter(finishedHabitsAdapter);
     }
 }
