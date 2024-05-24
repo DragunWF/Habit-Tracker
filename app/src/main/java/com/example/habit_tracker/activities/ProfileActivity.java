@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         logOutBtn.setOnClickListener(v -> {
             Utils.toast(ProfileActivity.this, "You have successfully logged out!");
             SessionData.logOut();
-            startActivity(new Intent(ProfileActivity.this, LogInAccount.class));
+            startActivity(new Intent(ProfileActivity.this, LogInAccountActivity.class));
         });
     }
 }

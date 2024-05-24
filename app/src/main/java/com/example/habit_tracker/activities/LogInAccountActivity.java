@@ -19,7 +19,7 @@ import com.example.habit_tracker.utils.Utils;
 
 import java.util.List;
 
-public class LogInAccount extends AppCompatActivity {
+public class LogInAccountActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
 
@@ -72,7 +72,7 @@ public class LogInAccount extends AppCompatActivity {
     private void setButtons() {
         loginBtn.setOnClickListener(v -> login());
         createAccountBtn.setOnClickListener(v -> {
-            startActivity(new Intent(LogInAccount.this, CreateAccount.class));
+            startActivity(new Intent(LogInAccountActivity.this, CreateAccountActivity.class));
         });
     }
 

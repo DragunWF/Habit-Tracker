@@ -20,7 +20,7 @@ import com.example.habit_tracker.utils.Utils;
 
 import java.util.List;
 
-public class CreateAccount extends AppCompatActivity {
+public class CreateAccountActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private EditText repeatPassword;
@@ -79,7 +79,7 @@ public class CreateAccount extends AppCompatActivity {
     private void setButtons() {
         goToLoginBtn.setOnClickListener(v -> {
             toast(String.format("%s has successfully logged in!", Utils.getString(username)));
-            startActivity(new Intent(CreateAccount.this, LogInAccount.class));
+            startActivity(new Intent(CreateAccountActivity.this, LogInAccountActivity.class));
         });
         registerBtn.setOnClickListener(v -> register());
     }

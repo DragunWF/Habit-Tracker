@@ -22,10 +22,10 @@
             android:name=".activities.AddHabitsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LogInAccount"
+            android:name=".activities.LogInAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CreateAccount"
+            android:name=".activities.CreateAccountActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
