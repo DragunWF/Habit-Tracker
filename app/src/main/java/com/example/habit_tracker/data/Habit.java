@@ -23,10 +23,6 @@ public class Habit {
         return habitID;
     }
 
-    public void setHabitID(int habitID) {
-        this.habitID = habitID;
-    }
-
     public String getName() {
         return name;
     }
