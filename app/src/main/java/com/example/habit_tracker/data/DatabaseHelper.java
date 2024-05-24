@@ -36,12 +36,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final String UNFINISHED_ID_PK = "unfinished_id";
     private final String HABIT_ID_FK = "habit_id";
     //USER_ID_FK
+    private final String DESCRIPTION_FK = "description";
     private final String NAME_FK = "name";
     //------UNFINISHED-COLUMNS------
     //------COMPLETED-COLUMNS------
     private final String COMPLETED_ID_PK = "completed_id";
     //HABIT_ID_FK
     //USER_ID_FK
+    //DESCRIPTION_FK
     //NAME_FK
     //------COMPLETED-COLUMNS------
     public DatabaseHelper(@Nullable Context context) {
@@ -59,14 +61,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                           + "FOREIGN KEY (" + USER_ID_FK + ") REFERENCES " + USER_TBL + "(" + USER_ID_PK + "))";
 
         String unfinished_tbl = "CREATE TABLE " + UNFINISHED_TBL + "(" + UNFINISHED_ID_PK + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-                                + USER_ID_FK + " INTEGER NOT NULL, " + HABIT_ID_FK + " INTEGER NOT NULL, " + NAME_FK + " TEXT NOT NULL, "
+                                + USER_ID_FK + " INTEGER NOT NULL, " + HABIT_ID_FK + " INTEGER NOT NULL, "
+                                + DESCRIPTION_FK + " TEXT NOT NULL, " + NAME_FK + " TEXT NOT NULL, "
                                 + "FOREIGN KEY (" + USER_ID_FK + ") REFERENCES " + USER_TBL + "(" + USER_ID_PK + "), "
-                                + "FOREIGN KEY (" + HABIT_ID_FK + ") REFERENCES " + HABIT_TBL + "(" + HABIT_ID_PK + "))";
+                                + "FOREIGN KEY (" + HABIT_ID_FK + ") REFERENCES " + HABIT_TBL + "(" + HABIT_ID_PK + "), "
+                                + "FOREIGN KEY (" + DESCRIPTION_FK + ") REFERENCES " + HABIT_TBL + "(" + DESCRIPTION + "), "
+                                + "FOREIGN KEY (" + NAME_FK + ") REFERENCES " + HABIT_TBL + "(" + NAME + "))";
 
         String completed_tbl = "CREATE TABLE " + COMPLETED_TBL + "(" + COMPLETED_ID_PK + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-                               + USER_ID_FK + " INTEGER NOT NULL, " + HABIT_ID_FK + " INTEGER NOT NULL, " + NAME_FK + " TEXT NOT NULL, "
-                               + "FOREIGN KEY (" + USER_ID_FK + ") REFERENCES " + USER_TBL + "(" + USER_ID_PK + "), "
-                               + "FOREIGN KEY (" + HABIT_ID_FK + ") REFERENCES " + HABIT_TBL + "(" + HABIT_ID_PK + "))";
+                                + USER_ID_FK + " INTEGER NOT NULL, " + HABIT_ID_FK + " INTEGER NOT NULL, "
+                                + DESCRIPTION_FK + " TEXT NOT NULL, " + NAME_FK + " TEXT NOT NULL, "
+                                + "FOREIGN KEY (" + USER_ID_FK + ") REFERENCES " + USER_TBL + "(" + USER_ID_PK + "), "
+                                + "FOREIGN KEY (" + HABIT_ID_FK + ") REFERENCES " + HABIT_TBL + "(" + HABIT_ID_PK + "), "
+                                + "FOREIGN KEY (" + DESCRIPTION_FK + ") REFERENCES " + HABIT_TBL + "(" + DESCRIPTION + "), "
+                                + "FOREIGN KEY (" + NAME_FK + ") REFERENCES " + HABIT_TBL + "(" + NAME + "))";
 
         db.execSQL(user_tbl);
         db.execSQL(habit_tbl);
@@ -99,27 +107,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(HABIT_TBL, null, cv);
     }
 
+    public void addUnfinishedHabit(Habit habit) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(HABIT_ID_FK, habit.getHabitID());
+        cv.put(USER_ID_FK, habit.getUserID());
+        cv.put(DESCRIPTION_FK, habit.getDescription());
+        cv.put(NAME_FK, habit.getName());
+        db.insert(UNFINISHED_TBL, null, cv);
+    }
+
+    public void addCompletedHabit(Habit habit) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(HABIT_ID_FK, habit.getHabitID());
+        cv.put(USER_ID_FK, habit.getUserID());
+        cv.put(DESCRIPTION_FK, habit.getDescription());
+        cv.put(NAME_FK, habit.getName());
+        db.insert(COMPLETED_TBL, null, cv);
+    }
+
     public List<User> getUser() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + USER_TBL, null);
-        List<User> user = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
-                user.add(new User(cursor.getInt(0),
+                users.add(new User(cursor.getInt(0),
                          cursor.getString(1),
                          cursor.getString(2)));
             } while(cursor.moveToNext());
         }
-        return user;
+        return users;
     }
 
     public List<Habit> getHabit() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + HABIT_TBL, null);
-        List<Habit> habit = new ArrayList<>();
+        List<Habit> habits = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
-                habit.add(new Habit(cursor.getInt(0),
+                habits.add(new Habit(cursor.getInt(0),
                                     cursor.getString(1),
                                     cursor.getString(2),
                                     cursor.getString(3),
@@ -128,7 +156,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                     cursor.getString(6)));
             } while (cursor.moveToNext());
         }
-        return habit;
+        return habits;
+    }
+
+    public List<Habit> getUnfinishedHabit() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + UNFINISHED_TBL, null);
+        List<Habit> habits = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                habits.add(new Habit(cursor.getInt(0),
+                                     cursor.getString(1),
+                                     cursor.getString(2),
+                                     cursor.getInt(3)));
+            } while(cursor.moveToNext());
+        }
+        return habits;
+    }
+
+    public List<Habit> getCompletedHabit() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + COMPLETED_TBL, null);
+        List<Habit> habits = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                habits.add(new Habit(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3)));
+            } while(cursor.moveToNext());
+        }
+        return habits;
     }
 
     public void updatePassword(String newPassword, String oldPassword) {
