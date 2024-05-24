@@ -124,4 +124,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return habit;
     }
+
+    public void updatePassword(String newPassword, String oldPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(PASSWORD, newPassword);
+        db.update(USER_TBL, cv, USER_ID_PK + " = " + oldPassword, new String[]{String.valueOf(new User().getPassword())});
+    }
 }

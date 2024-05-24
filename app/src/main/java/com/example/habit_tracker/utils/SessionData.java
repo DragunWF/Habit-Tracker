@@ -1,20 +1,25 @@
 package com.example.habit_tracker.utils;
 
+import com.example.habit_tracker.data.DatabaseHelper;
 import com.example.habit_tracker.data.Habit;
 import com.example.habit_tracker.data.User;
 
+import android.content.Context;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class SessionData {
     private static User currentUser;
-    private static List<User> users;
-    private static List<Habit> habits;
+    private static List<User> users = new ArrayList<>();
+    private static List<Habit> habits = new ArrayList<>();
     private static boolean initialize = false;
 
-    public static void initialize() {
+    public static void initialize(Context context) {
         if (!initialize) {
             initialize = true;
             // TODO: Get users from database and add them to users list
+            users.addAll(new DatabaseHelper(context).getUser());
         }
     }
 

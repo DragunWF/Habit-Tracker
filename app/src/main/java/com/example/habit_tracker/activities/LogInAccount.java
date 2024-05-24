@@ -36,7 +36,7 @@ public class LogInAccount extends AppCompatActivity {
             return insets;
         });
 
-        SessionData.initialize();
+        SessionData.initialize(this);
 
         username = findViewById(R.id.usernameLogin);
         password = findViewById(R.id.passwordLogin);
