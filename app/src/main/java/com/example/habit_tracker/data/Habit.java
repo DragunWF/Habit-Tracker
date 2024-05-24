@@ -28,6 +28,13 @@ public class Habit {
         this.status = status;
     }
 
+    public Habit(int habitID, String description, String name, int userID) {
+        this.habitID = habitID;
+        this.description = description;
+        this.name = name;
+        this.userID = userID;
+    }
+
     public int getHabitID() {
         return habitID;
     }
