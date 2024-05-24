@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -23,7 +24,7 @@ public class LogInAccount extends AppCompatActivity {
     private EditText password;
 
     private Button loginBtn;
-    private Button createAccountBtn;
+    private TextView createAccountBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +41,9 @@ public class LogInAccount extends AppCompatActivity {
         username = findViewById(R.id.usernameLogin);
         password = findViewById(R.id.passwordLogin);
         loginBtn = findViewById(R.id.logInBtn);
-        // createAccountBtn = findViewById(R.id.);
+        createAccountBtn = findViewById(R.id.signUpTextBtn);
 
-        loginBtn.setOnClickListener(v -> login());
-        createAccountBtn.setOnClickListener(v -> {
-            // TODO: Remove when implemented
-            // startActivity(LogInAccount.this, SignInActivity.class);
-        });
+        setButtons();
     }
 
     public void login() {
@@ -70,6 +67,13 @@ public class LogInAccount extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    private void setButtons() {
+        loginBtn.setOnClickListener(v -> login());
+        createAccountBtn.setOnClickListener(v -> {
+            startActivity(new Intent(LogInAccount.this, CreateAccount.class));
+        });
     }
 
     public void toast(String message) {
