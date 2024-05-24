@@ -2,10 +2,14 @@ package com.example.habit_tracker.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final String USER_TBL = "user_tbl";
@@ -87,5 +91,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(USER_ID_FK, habit.getUserID());
         cv.put(STATUS, habit.getStatus());
         db.insert(HABIT_TBL, null, cv);
+    }
+
+    public List<User> getUser() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + USER_TBL, null);
+        List<User> user = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                user.add(new User(cursor.getInt(0),
+                         cursor.getString(1),
+                         cursor.getString(2)));
+            } while(cursor.moveToNext());
+        }
+        return user;
+    }
+
+    public List<Habit> getHabit() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + HABIT_TBL, null);
+        List<Habit> habit = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                habit.add(new Habit(cursor.getInt(0),
+                                    cursor.getString(1),
+                                    cursor.getString(2),
+                                    cursor.getString(3),
+                                    cursor.getString(4),
+                                    cursor.getInt(5),
+                                    cursor.getString(6)));
+            } while (cursor.moveToNext());
+        }
+        return habit;
     }
 }
