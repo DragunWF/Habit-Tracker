@@ -41,8 +41,8 @@ public class HabitRecycler extends RecyclerView.Adapter<HabitRecycler.ViewHolder
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView
      */
-    public HabitRecycler(String[] dataSet) {
-        localDataSet = dataSet;
+    public HabitRecycler(List<Habit> habits) {
+        this.habits = habits;
     }
 
     // Create new views (invoked by the layout manager)
