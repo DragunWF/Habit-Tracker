@@ -1,5 +1,6 @@
 package com.example.habit_tracker.data;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -66,5 +67,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public void addUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(USERNAME, user.getUsername());
+        cv.put(PASSWORD, user.getPassword());
+        db.insert(USER_TBL, null, cv);
+    }
+
+    public void addHabit(Habit habit) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(NAME, habit.getName());
+        cv.put(DESCRIPTION, habit.getDescription());
+        cv.put(TIME, habit.getTime());
+        cv.put(SCHEDULE, habit.getSchedule());
+        cv.put(USER_ID_FK, habit.getUserID());
+        cv.put(STATUS, habit.getStatus());
+        db.insert(HABIT_TBL, null, cv);
     }
 }
