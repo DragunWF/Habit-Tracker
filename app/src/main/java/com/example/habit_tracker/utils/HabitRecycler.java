@@ -29,10 +29,6 @@ public class HabitRecycler extends RecyclerView.Adapter<HabitRecycler.ViewHolder
 
             // textView = (TextView) view.findViewById(R.id.textView);
         }
-
-        public TextView getTextView() {
-            return textView;
-        }
     }
 
     /**

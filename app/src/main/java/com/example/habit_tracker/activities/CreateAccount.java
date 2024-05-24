@@ -12,7 +12,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.habit_tracker.MainActivity;
 import com.example.habit_tracker.R;
+import com.example.habit_tracker.data.User;
+import com.example.habit_tracker.utils.SessionData;
 import com.example.habit_tracker.utils.Utils;
+
+import java.util.List;
 
 public class CreateAccount extends AppCompatActivity {
     private EditText username;
@@ -44,13 +48,29 @@ public class CreateAccount extends AppCompatActivity {
             toast("Please do not leave any fields empty!");
         } else if (Utils.getString(password).equals(Utils.getString(repeatPassword))) {
             toast("Password and repeat password fields do not match");
+        } else if (isUsernameExists()) {
+            toast("Username already exists! Please use a different username");
         } else {
-            toast(String.format("%s has successfully logged in!", Utils.getString(username)));
+            longToast(String.format("%s has successfully logged in!", Utils.getString(username)));
             startActivity(new Intent(this, MainActivity.class));
         }
     }
 
+    public boolean isUsernameExists() {
+        List<User> users = SessionData.getUsers();
+        for (User user : users) {
+            if (user.getUsername().equals(Utils.getString(username))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void toast(String message) {
         Utils.toast(this, message);
+    }
+
+    public void longToast(String message) {
+        Utils.longToast(this, message);
     }
 }
